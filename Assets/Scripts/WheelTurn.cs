@@ -16,6 +16,9 @@ public class WheelTurn : MonoBehaviour
     public float initialTimer;
     private float rotateTimer;
 
+    [SerializeField]
+    private DriverMovement driverMovement;
+
     private void Start()
     {
       //  wheelMoving = false;
@@ -44,12 +47,14 @@ public class WheelTurn : MonoBehaviour
             if (rotatingLeft)
             {
                 gameObject.transform.Rotate(0,0,Mathf.Lerp(0,-45, 1 * Time.deltaTime));
+                driverMovement.gameObject.transform.Rotate(0,Mathf.Lerp(0,-45, 1 * Time.deltaTime),0);
                 rotateTimer -= Time.deltaTime;
             }
 
             if (rotatingRight)
             {
                 gameObject.transform.Rotate(0,0,Mathf.Lerp(0,45,1 * Time.deltaTime));
+                driverMovement.gameObject.transform.Rotate(0,Mathf.Lerp(0,45,1 * Time.deltaTime),0);
                 rotateTimer -= Time.deltaTime;
             }
         }
