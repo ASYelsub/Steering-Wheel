@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //The intent of this script is to be the input where the player presses w or d and the wheel moves
@@ -16,27 +17,51 @@ public class WheelTurn : MonoBehaviour
     public float initialTimer;
     private float rotateTimer;
 
+    [SerializeField] private string[] responseStrings;
+    
+    
+    //wtf is up with like editing UI through code dude
+    [SerializeField] private GameObject suspicianMeter;
+    
+    [SerializeField] private Text[] responseText = new Text[4];
+    
     [SerializeField]
     private DriverMovement driverMovement;
 
     private void Start()
     {
-      //  wheelMoving = false;
+        for (int i = 0; i < responseText.Length; i++)
+        {
+            responseText[i].text = " ";
+        }
+      // wheelMoving = false;
         rotatingLeft = false;
         rotatingRight = false;
         rotateTimer = initialTimer;
+        //RectTransform suspicianTransform = suspicianMeter.GetComponent<RectTransform>();
+        //suspicianTransform.position = new Vector3(0, suspicianTransform.position.y,suspicianTransform.position.z);
+        //suspicianMeter.transform.position = suspicianTransform.position;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (!rotatingLeft && !rotatingRight)
         {
-            rotatingRight = true;
-        }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                rotatingRight = true;
+            }
 
-        if (Input.GetKeyDown(KeyCode.D))
-        { 
-            rotatingLeft = true;
+            if (Input.GetKeyDown(KeyCode.D))
+            { 
+                rotatingLeft = true;
+            }
+        }
+        
+        //testing
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            MoveTextUp();
         }
     }
 
@@ -64,7 +89,11 @@ public class WheelTurn : MonoBehaviour
             rotatingLeft = false;
             rotatingRight = false;
         }
-        
+    }
+
+
+    void MoveTextUp()
+    {
         
     }
 }
