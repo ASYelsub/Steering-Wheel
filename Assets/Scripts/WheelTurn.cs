@@ -18,8 +18,8 @@ public class WheelTurn : MonoBehaviour
     private float rotateTimer;
 
     [SerializeField] private string[] responseStrings;
-    
-    
+
+    private int textValidCounter = 0;
     //wtf is up with like editing UI through code dude
     [SerializeField] private GameObject suspicianMeter;
     
@@ -94,6 +94,44 @@ public class WheelTurn : MonoBehaviour
 
     void MoveTextUp()
     {
-        
+           
+        //first time it's pressed, responseText[0] = responseStrings[0];
+            // all other responseText = " ";
+        //if input, push the text up the array.
+        if (textValidCounter < responseStrings.Length)
+        {
+            switch (textValidCounter)
+            { case 0:
+                    responseText[0].text = responseStrings[0];
+                    break;
+                case 1:
+                    responseText[1].text = responseStrings[0];
+                    responseText[0].text = responseStrings[1];
+                    break;
+                case 2:
+                    responseText[2].text = responseStrings[0];
+                    responseText[1].text = responseStrings[1];
+                    responseText[0].text = responseStrings[2];
+                    break;
+                case 3:
+                    responseText[3].text = responseStrings[0];
+                    responseText[2].text = responseStrings[1];
+                    responseText[1].text = responseStrings[2];
+                    responseText[0].text = responseStrings[3];
+                    break;
+                default: //after setting the first four
+                    for (int i = 0; i < responseText.Length; i++)
+                    {
+                        responseText[i].text = responseStrings[textValidCounter - i];
+                    }
+                    break;
+            }
+
+            textValidCounter++;   
+        }
+        else
+        {
+            print("Process done.");
+        }
     }
 }

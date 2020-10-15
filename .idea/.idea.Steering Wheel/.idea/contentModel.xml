@@ -2,8 +2,24 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Packages" t="Include">
+          <e p="Pixel Nostalgia" t="Include">
+            <e p="Editor" t="Include">
+              <e p="PixelNostalgiaEditor.cs" t="Include" />
+            </e>
+            <e p="README.txt" t="Include" />
+            <e p="Resources" t="Include">
+              <e p="PixelNostalgia.shader" t="Include" />
+            </e>
+            <e p="Scripts" t="Include">
+              <e p="PixelNostalgia.cs" t="Include" />
+              <e p="PixelNostalgiaSettings.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="DriverMovement.cs" t="Include" />
           <e p="WheelTurn.cs" t="Include" />
