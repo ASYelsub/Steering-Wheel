@@ -19,32 +19,51 @@ public class WheelTurn : MonoBehaviour
 
     [SerializeField] private string[] responseStrings;
 
+    [SerializeField] private string[] goodJobResponse;
+
+    [SerializeField] private string[] badJobResponse;
+
+    [SerializeField] private string[] crashResponse;
+
     private int textValidCounter = 0;
     //wtf is up with like editing UI through code dude
     [SerializeField] private GameObject suspicianMeter;
     
     [SerializeField] private Text[] responseText = new Text[4];
     
+    [SerializeField] private AudioClip[] roachSounds = new AudioClip[6];
+    [SerializeField] private  AudioSource roachSource = new AudioSource();
+    private int randomAudioInt;
+    
     [SerializeField]
     private DriverMovement driverMovement;
 
+    private float driverRotateTimer;
+    private float suspicianMax = 1.450774f;
+    private float susTimer = 0f;
     private void Start()
     {
+        //gonna use this to compare rotation timers between roach and car
+        driverRotateTimer = driverMovement.rotateTimer;
+
+        
         for (int i = 0; i < responseText.Length; i++)
         {
             responseText[i].text = " ";
         }
-      // wheelMoving = false;
+        // wheelMoving = false;
         rotatingLeft = false;
         rotatingRight = false;
         rotateTimer = initialTimer;
-        //RectTransform suspicianTransform = suspicianMeter.GetComponent<RectTransform>();
+        RectTransform suspicianTransform = suspicianMeter.GetComponent<RectTransform>();
+        suspicianTransform.sizeDelta = new Vector2(0,0.05785748f);
         //suspicianTransform.position = new Vector3(0, suspicianTransform.position.y,suspicianTransform.position.z);
         //suspicianMeter.transform.position = suspicianTransform.position;
     }
 
     private void Update()
     {
+        driverRotateTimer = driverMovement.rotateTimer;
         if (!rotatingLeft && !rotatingRight)
         {
             if (Input.GetKeyDown(KeyCode.A))
@@ -67,6 +86,13 @@ public class WheelTurn : MonoBehaviour
 
     private void FixedUpdate()
     {
+        RectTransform suspicianTransform = suspicianMeter.GetComponent<RectTransform>();
+        suspicianTransform.sizeDelta = new Vector2(susTimer, 0.05785748f);
+        //suspicianTransform.rect.width = new Vector2(0.5735f,-0.06800008f);
+        if (suspicianTransform.sizeDelta.x < suspicianMax)
+        {
+            susTimer += Time.deltaTime;
+        }
         if (rotateTimer > 0)
         {
             if (rotatingLeft)
@@ -89,12 +115,21 @@ public class WheelTurn : MonoBehaviour
             rotatingLeft = false;
             rotatingRight = false;
         }
+
+        //print(driverRotateTimer + " over " + rotateTimer);
+        //they both start at 2 and decrease to 0 and then reset to 2
+        if (rotateTimer - driverRotateTimer > 1f && roachSource.isPlaying == false)
+        {
+            randomAudioInt = UnityEngine.Random.Range(0, 6);
+            roachSource.PlayOneShot(roachSounds[randomAudioInt]);
+            //print("ITS HAPPENING");
+        }
     }
 
 
     void MoveTextUp()
     {
-           
+
         //first time it's pressed, responseText[0] = responseStrings[0];
             // all other responseText = " ";
         //if input, push the text up the array.

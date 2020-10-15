@@ -10,7 +10,8 @@ public class DriverMovement : MonoBehaviour
     private bool rotatingLeft;
     private bool rotatingRight;
     public float initialTimer;
-    private float rotateTimer;
+    [HideInInspector]
+    public float rotateTimer;
 
 
     [SerializeField]
