@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //this script has the driver turn its arms expecting the wheel to turn
 //it also makes the entire apparatus move forward
 public class DriverMovement : MonoBehaviour
 {
-    private bool rotatingLeft;
-    private bool rotatingRight;
+    public bool rotatingLeft;
+    public bool rotatingRight;
     public float initialTimer;
     [HideInInspector]
     public float rotateTimer;
@@ -19,6 +20,8 @@ public class DriverMovement : MonoBehaviour
 
     private int randomInt;
     private float movementFloat;
+
+//    private float bufferTime;
     
     private void Start()
     {
@@ -68,6 +71,14 @@ public class DriverMovement : MonoBehaviour
         
         //code for entire car movement
         MoveForward();
+//        bufferTime = rotateTimer;
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        SceneManager.LoadScene(2);
     }
 
     void ResetRandoms()
