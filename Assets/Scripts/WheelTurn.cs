@@ -142,8 +142,8 @@ public class WheelTurn : MonoBehaviour
         {
             BadFunc();
         }
-        if (rotateTimer - driverRotateTimer < .2f && computerSource.isPlaying == false)
-            if(driverMovement.rotatingRight || driverMovement.rotatingLeft)
+        if (rotateTimer - driverRotateTimer < 1.5f && computerSource.isPlaying == false)
+            if((driverMovement.rotatingRight && rotatingLeft)|| (driverMovement.rotatingLeft && rotatingRight))
             {
                 GoodFunc();
                 print("this is happening");
@@ -151,15 +151,13 @@ public class WheelTurn : MonoBehaviour
 
         //The rotate timer additional condition is in here because
         //the roach could have very quickly shifted from left to right
-        if (driverMovement.rotatingRight == false && rotatingRight == true 
-                                                  && rotateTimer > .5f && computerSource.isPlaying == false)
+        if (driverMovement.rotatingLeft && rotatingLeft && computerSource.isPlaying == false)
         {
             BadFunc();
             bufferActivated = true;
         }
 
-        if (driverMovement.rotatingLeft == false && rotatingLeft == true
-        && rotateTimer > .5f && computerSource.isPlaying == false)
+        if (driverMovement.rotatingRight && rotatingRight && computerSource.isPlaying == false)
         {
             BadFunc();
             bufferActivated = true;
