@@ -51,13 +51,13 @@ public class DriverMovement : MonoBehaviour
         {
             if (rotatingLeft)
             {
-                arms.transform.Rotate(0, Mathf.Lerp(0, -45, 1 * Time.deltaTime), 0);
+                arms.transform.Rotate(0, Mathf.Lerp(0, 45, 1 * Time.deltaTime), 0);
                 rotateTimer -= Time.deltaTime;
             }
 
             if (rotatingRight)
             {
-                arms.transform.Rotate(0, Mathf.Lerp(0, 45, 1 * Time.deltaTime), 0);
+                arms.transform.Rotate(0, Mathf.Lerp(0, -45, 1 * Time.deltaTime), 0);
                 rotateTimer -= Time.deltaTime;
             }
         }
